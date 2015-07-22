@@ -1,0 +1,9 @@
+# Site settings
+title: Research blog
+email: jda@cs.berkeley.edu
+description: Research blog about language and machine learning.
+baseurl: "/"
+url: "http://blog.jacobandreas.net"
+
+# Build settings
+markdown: kramdown
