@@ -2,7 +2,7 @@
 title: Research blog
 email: jda@cs.berkeley.edu
 description: Research blog about language and machine learning.
-baseurl: "/"
+baseurl: ""
 url: "http://blog.jacobandreas.net"
 
 # Build settings
