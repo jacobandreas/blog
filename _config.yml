@@ -6,4 +6,14 @@ url: "http://blog.jacobandreas.net"
 
 # Build settings
 markdown: kramdown
-highlighter: rouge
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+# Defaults
+defaults:
+  -
+    scope:
+      path: ""
+    values:
+      layout: "post"
