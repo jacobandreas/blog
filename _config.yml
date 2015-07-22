@@ -6,3 +6,4 @@ url: "http://blog.jacobandreas.net"
 
 # Build settings
 markdown: kramdown
+highlighter: rouge
