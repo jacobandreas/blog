@@ -72,7 +72,11 @@ experience suggests that they should be neural nets, but neural nets of a very
 particular kind: rather than being trained to accomplish some particular task
 (like image captioning), they're trained to be freely composable: `describeAll`
 promises to take anything "like a list of detections" (whether directly from
-`detectObjects` or subsequently filtered) and produce a string.
+`detectObjects` or subsequently filtered) and produce a string. Note in
+particular that the inputs and outputs to these functions are all real
+vectors. There is no way to structurally enforce that a thing "like a list of
+detections" actually has the desired semantics, and instead we rely entirely on
+the training procedure.
 
 In current real-world implementations, there's a notion of _layers_ as modular,
 pre-specified units, but _networks_ as monolithic models customized for specific
@@ -93,11 +97,13 @@ Steps we are already taking in this direction: the fact that people use a prefix
 of an image classification network to initialize models for basically every
 other vision task; the fact that "attention" is suddenly being treated as a
 primitive in model descriptions even though it's a complicated sequence of
-operations for combining multiple layers. Some of Roger Grosse's work on
-grammars over matrix factorization models also kind of looks like this, and
-Christopher Olah has a discussion of the type-theoretic niceties of
-understanding neural nets as collections of reusable modules (though to me this
-seems largely secondary to the practical question of what these types are).
+operations for combining multiple layers. Roger Grosse's beautiful [paper on
+grammars over matrix factorization
+models](http://www.cs.toronto.edu/~rgrosse/uai2012-matrix.pdf) also kind of
+looks like this, and Christopher Olah has a [discussion of the type-theoretic
+niceties](http://colah.github.io/posts/2015-09-NN-Types-FP/) of neural nets
+understood as collections of reusable modules (though to me this seems largely
+secondary to the practical question of what these types are).
 
 To bring this back to the earlier programming language discussion, we observe
 that:
