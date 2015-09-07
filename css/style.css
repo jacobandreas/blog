@@ -18,3 +18,7 @@ h1 {
 ul.post-list {
   list-style-type: none;
 }
+
+h3.reading a {
+  color: #aaa;
+}

@@ -1,14 +1,16 @@
 # Site settings
-title: Research blog
+title: blog
 email: jda@cs.berkeley.edu
-description: Research blog about language and machine learning.
+description: Notes on language, machine learning, etc.
 url: "http://blog.jacobandreas.net"
+permalink: /:title.html
 
 # Build settings
 markdown: kramdown
 kramdown:
   input: GFM
   syntax_highlighter: rouge
+  hard_wrap: false
 
 # Defaults
 defaults:
