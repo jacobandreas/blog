@@ -144,6 +144,7 @@ Followup:
 * [Deep compositional question answering with neural networks](http://arxiv.org/abs/1511.02799)
 * [Learning to compose neural networks for question answering](http://arxiv.org/abs/1601.01705)
 
+---
 
 [^1]: Obviously this is a gross overstatement, since lots of people do continue to
       write assembly and C. But I think it's less controversial to say that _fewer_
