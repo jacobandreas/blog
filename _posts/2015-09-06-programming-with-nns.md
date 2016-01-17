@@ -137,6 +137,14 @@ comprehensive solution (esp. if we want to interface between vision / language /
 control applications), and I think there's a really interesting systems problem
 here too.
 
+---
+
+Followup:
+
+* [Deep compositional question answering with neural networks](http://arxiv.org/abs/1511.02799)
+* [Learning to compose neural networks for question answering](http://arxiv.org/abs/1601.01705)
+
+
 [^1]: Obviously this is a gross overstatement, since lots of people do continue to
       write assembly and C. But I think it's less controversial to say that _fewer_
       people write in low-level languages, and that it's harder to do so correctly.
