@@ -53,10 +53,10 @@ state" is bad; a better analogy is "HMM _decoder_ state = RNN hidden state".
 This _temptation to form false analogies_ is especially appealing to those of us
 who grew up in the the graphical models culture, and are accustomed to inference
 design problems that look algorithmic. But it's only one of a variety of failure
-modes associated with the neural-nets-as-models perspective. Some of these
-failure modes instead seem to preferentially afflict people from the neural nets
-culture, who have never needed to think about inference at all. Most conspicuous
-here is a _failure to reason about computation_: this shows up especially in the
+modes associated with the neural-nets-as-models perspective. Another
+failure mode seems to preferentially afflict people from the neural nets
+culture, who have never needed to think about inference at all: this is a
+_failure to reason about computation_. This shows up especially in the
 use of [crippled baselines](http://arxiv.org/abs/1511.08228), or expressions of
 surprise that particular neural models [can](http://arxiv.org/abs/1312.6192) or
 [can't](http://arxiv.org/abs/1503.08895v4) solve particular problems.  (These
@@ -65,8 +65,8 @@ fellow researchers---I accuse them only of making the same mistakes as me!)
 
 ---
 
-Let's look a little bit more closely at the HMM example. Code for experiments in
-this section can be found in the accompanying [Jupyter
+Let's look a little bit more closely at the case of hidden Markov models. Code
+for experiments in this section can be found in the accompanying [Jupyter
 notebook](https://github.com/jacobandreas/blog/blob/gh-pages/notebooks/monference.ipynb).
 
 If we think about the classical inference procedure with the same structure
