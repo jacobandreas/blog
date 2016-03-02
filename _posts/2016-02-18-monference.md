@@ -67,7 +67,8 @@ think people get in the habit of saying "everything is a function approximator,
 and all function approximators are basically comparable". Whereas if you say
 "everything is a program", these fair comparison issues become more complicated:
 you have to start worrying about equal runtimes, availability of the right
-floating point operations, etc.
+floating point operations, etc. But when building inference procedures, these
+are exactly the questions we should worry most about!
 
 ---
 
@@ -125,23 +126,24 @@ on samples from the HMM gave a tagging accuracy of:
 {% endhighlight %}
 
 See the pattern?  Notice: the neural nets we've used here don't encode anything
-about classical message-passing rules. Yet in both cases, the neural net managed
-to achieve accuracy as good as (but no better than) the classical message
-passing procedure with the same algorithmic structure.
+about classical message-passing rules, and they definitely don't encode anything
+about the generative process underlying an HMM. Yet in both cases, the neural
+net managed to achieve accuracy as good as (but no better than) the classical
+message passing procedure with the same structure.
 
 ---
 
-Neural networks are not magic! When our data is actually generated from a hidden
-Markov model, we can't hope to beat an (information-theoretically optimal)
-classical monference with a neural one. But we can empirically do just as well.
-Better yet, by modeling our networks after the _algorithmic structure_ of
-classical inference procedures, we can perhaps worry less about harder cases,
-when we previously would have needed to hand-tune some approximate inference
-scheme.  As we augment neural architectures to match more powerful inference
-procedures, their performance improves.  Bidirectional recurrent nets are better
-than forward-only ones; bidirectional networks with [multiple layers between
-each "real" hidden vector](http://arxiv.org/abs/1602.08210) might be even better
-for some tasks.
+Neural networks are not magic! When our data is actually generated from an HMM,
+we can't hope to beat an (information-theoretically optimal) classical
+monference with a neural one. But we can empirically do just as well. Better
+yet, by modeling our networks after the _algorithmic structure_ of classical
+inference procedures, we can perhaps worry less about harder cases, when we
+previously would have needed to hand-tune some approximate inference scheme.  As
+we augment neural architectures to match more powerful inference procedures,
+their performance improves.  Bidirectional recurrent nets are better than
+forward-only ones; bidirectional networks with [multiple layers between each
+"real" hidden vector](http://arxiv.org/abs/1602.08210) might be even better for
+some tasks.
 
 So far we've been looking at sequences, but analogues for more structured data
 exist as well. For tree-shaped problems, we can run something that looks like
@@ -192,6 +194,7 @@ CRFs](http://www.eecs.berkeley.edu/~gdurrett/papers/durrett-klein-acl2015.pdf).
 (Though one of the usual selling points of these methods is that "you get to
 keep your dynamic program", which we've argued here is true of regular recurrent
 networks as well.)
+
 In spite of all this, as research focus in this corner of the machine learning
 community shifts towards [planning, reasoning, and harder algorithmic
 problems](http://nips2015.sched.org/event/4G4h/reasoning-attention-memory-ram-workshop),
