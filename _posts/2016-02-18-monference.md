@@ -92,8 +92,8 @@ following form:
 
 <img src="figures/monference_rnn.png" style="width: 30%">
 
-(where each arrow is an inner product followed by a ReLU). In this case we
-obtain the following accuracy:
+(where each arrow is an inner product followed by a ReLU or softmax). In this
+case we obtain the following accuracy:
 
 {% highlight text %}
     62.8
