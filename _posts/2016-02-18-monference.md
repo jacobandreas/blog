@@ -64,11 +64,11 @@ simple algorithmic or reasoning problem, and conclude that some crazy new
 architecture is necessary---when often it would have been enough to let the RNN
 run for more steps, or make a minor change to kind of recurrent unit used.  I
 think people get in the habit of saying "everything is a function approximator,
-and all function approximators are basically comparable". Whereas if you say
+and all function approximators are basically comparable". Whereas if we say
 "everything is a program", these fair comparison issues become more complicated:
-you have to start worrying about equal runtimes, availability of the right
+we have to start worrying about equal runtimes, availability of the right
 floating point operations, etc. But when building inference procedures, these
-are exactly the questions we should worry most about!
+are exactly the things we should worry most about!
 
 ---
 
