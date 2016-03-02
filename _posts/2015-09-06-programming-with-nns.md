@@ -81,7 +81,7 @@ the training procedure.
 In current real-world implementations, there's a notion of _layers_ as modular,
 pre-specified units, but _networks_ as monolithic models customized for specific
 tasks (and requiring end-to-end training). Once we move to modular networks,
-though, we can start to perform tasks for which _no training data exists_. For
+though, we can start to perform tasks for which no training data exists. For
 example, "write a caption about the people in this image":
 
 {% highlight scala %}
@@ -91,7 +91,7 @@ example, "write a caption about the people in this image":
       andThen describeAll
 {% endhighlight %}
 
-using only the primitives specified above! 
+using the same primitives specified above.
 
 Steps we are already taking in this direction: the fact that people use a prefix
 of an image classification network to initialize models for basically every

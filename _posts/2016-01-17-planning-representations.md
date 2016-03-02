@@ -2,7 +2,6 @@
 title: Planning in representation space
 ---
 
-(Thanks to Dylan Hadfield-Menell for some of the initial ideas here.)
 
 Agents parameterized by neural nets (Atari players etc.) seem to universally
 suffer from an ability to plan. This is obvious in the case of Markov reflex
@@ -113,5 +112,11 @@ agent access to a discrete inventory of different policies, with associated
 transition costs $$k_1, k_2, \ldots$$. Now the search problem involves both
 (continuously) choosing a set of points, and (discretely) choosing cost
 functions / motion primitives for moving between them. The associated motions of
-each of these primitives might be confined to some sub-manifold of configuration
-space (e.g. only move the end effector, only move the first joint). 
+each of these primitives might be confined to some (hand-picked) sub-manifold of
+configuration space (e.g. only move the end effector, only move the first
+joint). 
+
+---
+
+Thanks to Dylan Hadfield-Menell for useful discussions about task and motion
+planning.
