@@ -87,7 +87,7 @@ apply this min-risk classical procedure, we obtain the following tagging
 
 Another totally acceptable (though somewhat more labor-intensive) way of
 producing a monference for this online tagging problem is to take the HMM, draw
-many samples from it, and use these as training for a vanilla RNN of the
+many samples from it, and use these as training data for a vanilla RNN of the
 following form:
 
 <img src="figures/monference_rnn.png" style="width: 30%">
