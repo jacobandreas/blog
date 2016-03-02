@@ -150,7 +150,7 @@ like belief propagation.
 There's a general principle here: anywhere you have an inference algorithm that
 maintains a distribution over discrete states, instead: 
 
-1. replace {chart cells, distributions over discrete states} with vectors
+1. replace {chart cells, discrete distributions} with vectors
 2. unroll the "inference" procedure for a suitable number of iterations
 3. train via backpropagation
 
