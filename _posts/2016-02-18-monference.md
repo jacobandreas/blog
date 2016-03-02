@@ -41,6 +41,8 @@ Kalman filtering?
 This complaint is _wrong_. Our goal in the remainder of this post is to explore
 why it's wrong.
 
+---
+
 Put simply, there is no reason to regard the hidden state of a
 recurrent network as a single hypothesis. After all, a sufficiently large hidden
 vector can easily represent the whole table of probabilities we use in the
@@ -125,15 +127,15 @@ passing procedure with the same algorithmic structure.
 
 Neural networks are not magic! When our data is actually generated from a hidden
 Markov model, we can't hope to beat an (information-theoretically optimal)
-classical monference with a neural one. But we can empirically do just as
-well---and better yet, by modeling our networks after the _structure_ of
+classical monference with a neural one. But we can empirically do just as well.
+Better yet, by modeling our networks after the _algorithmic structure_ of
 classical inference procedures, we can perhaps worry less about harder cases,
 when we previously would have needed to hand-tune some approximate inference
 scheme.  As we augment neural architectures to match more powerful inference
 procedures, their performance improves.  Bidirectional recurrent nets are better
-than forward-only ones; bidirectional networks with [multiple layers between each
-"real" hidden vector](http://arxiv.org/abs/1602.08210) might be even better for
-some tasks.
+than forward-only ones; bidirectional networks with [multiple layers between
+each "real" hidden vector](http://arxiv.org/abs/1602.08210) might be even better
+for some tasks.
 
 So far we've been looking at sequences, but analogues for more structured data
 exist as well. For tree-shaped problems, we can run something that looks like
@@ -155,12 +157,15 @@ maintains a distribution over discrete states, instead:
 The resulting monference has at least as much capacity as the corresponding
 classical procedure. To the extent that appproximation is necessary, we can (at
 least empirically) _learn_ the right approximation end-to-end from the training
-data.
+data. I think there's at least one more constituency parsing paper to be written
+using all the pieces of this framework, and lots more for working with
+graph-structured data.
 
 ---
 
-I've argued that this perspective is useful, but is it true? That is, is there a
-precise sense in which a neural net is _really_ a monference, and not a model?
+I've argued that the monference perspective is useful, but is it true? That is,
+is there a precise sense in which a neural net is _really_ a monference, and not
+a model?
 
 No. There's a fundamental identifiability problem---we can't really distinguish
 between "fancy model with trivial inference" and "mystery model with complicated
@@ -174,18 +179,20 @@ CRFs](http://www.eecs.berkeley.edu/~gdurrett/papers/durrett-klein-acl2015.pdf).
 (Though one of the usual selling points of these methods is that "you get to
 keep your dynamic program", which we've argued here is true of regular recurrent
 networks as well.)
-
 In spite of all this, as research focus in this corner of the machine learning
 community shifts towards [planning, reasoning, and harder algorithmic
 problems](http://nips2015.sched.org/event/4G4h/reasoning-attention-memory-ram-workshop),
 I think the neural-nets-as-monferences perspective will become increasingly
-important. More than that---when we look back on the "deep learning revolution"
-ten years from now, I think the real lesson will be the importance of end-to-end
-training of decoders and reasoning procedures, even in systems that [barely
-look](http://www.cs.cmu.edu/~mgormley/papers/gormley+dredze+eisner.tacl.2015.pdf)
-like neural networks [at all](http://arxiv.org/abs/1601.01705).
+important. 
 
-So when choosing neural net topologies, let's not forget everything we know
-about inference procedures. At the same time, let's think of inference as
-something with parameters to be learned, rather than a fixed piece of code to be
-written offline. 
+More than that---when we look back on the "deep learning revolution" ten years
+from now, I think the real lesson will be the importance of end-to-end training
+of decoders and reasoning procedures, even in systems that [barely
+look](http://www.cs.cmu.edu/~mgormley/papers/gormley+dredze+eisner.tacl.2015.pdf)
+like neural networks [at all](http://arxiv.org/abs/1601.01705). So when building
+learning systems, don't ask: "what is the probabilistic relationship among my
+variables?". Instead ask: "how do I approximate the inference function for my
+problem?", and attempt to learn this approximation directly. To do this
+effectively, we shouldn't ignore everything we know about classical inference
+procedures. But we should also start thinking of inference as a first-class part
+of the learning problem.
