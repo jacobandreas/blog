@@ -51,17 +51,23 @@ show this experimentally in a moment. The analogy "HMM hidden state = RNN hidden
 state" is bad; a better analogy is "HMM _decoder_ state = RNN hidden state".
 
 This _temptation to form false analogies_ is especially appealing to those of us
-who grew up in the the graphical models culture, and are accustomed to inference
+who grew up in the graphical models culture, and are accustomed to inference
 design problems that look algorithmic. But it's only one of a variety of failure
 modes associated with the neural-nets-as-models perspective. Another
 failure mode seems to preferentially afflict people from the neural nets
 culture, who have never needed to think about inference at all: this is a
-_failure to reason about computation_. This shows up especially in the
-use of [crippled baselines](http://arxiv.org/abs/1511.08228), or expressions of
-surprise that particular neural models [can](http://arxiv.org/abs/1312.6192) or
-[can't](http://arxiv.org/abs/1503.08895v4) solve particular problems.  (These
-are all good papers, and I apologize for the appearance of shade-throwing at my
-fellow researchers---I accuse them only of making the same mistakes as me!)
+_failure to reason about computation_. 
+
+I don't want to pick on anyone individually. But there seems to be a recent
+trend of papers that start with a basic RNN, observe that it can't solve some
+simple algorithmic or reasoning problem, and conclude that some crazy new
+architecture is necessary---when often it would have been enough to let the RNN
+run for more steps, or make a minor change to kind of recurrent unit used.  I
+think people get in the habit of saying "everything is a function approximator,
+and all function approximators are basically comparable". Whereas if you say
+"everything is a program", these fair comparison issues become more complicated:
+you have to start worrying about equal runtimes, availability of the right
+floating point operations, etc.
 
 ---
 
@@ -69,16 +75,16 @@ Let's look a little bit more closely at the case of hidden Markov models. Code
 for experiments in this section can be found in the accompanying [Jupyter
 notebook](https://github.com/jacobandreas/blog/blob/gh-pages/notebooks/monference.ipynb).
 
-If we think about the classical inference procedure with the same structure
-as a (uni-directional) recurrent neural network, it's something like this:
-for $$t = 0..n$$, receive an emission $$x$$ from the HMM, and _immediately_
-predict a hidden state $$y$$.
+If we think about the classical inference procedure with the same structure as a
+(uni-directional) recurrent neural network, it's something like this: for $$t =
+0..n$$, receive an emission $$x_t$$ from the HMM, and _immediately_ predict a
+hidden state $$y_t$$. You should be able to convince yourself that if we're
+evaluated on tagging accuracy, the min-risk monference (if HMM parameters are
+known) is to run the forward algorithm, and predict the tag with maximum
+marginal probability at each time $$t$$. 
 
-You should be able to convince yourself that if we're evaluated on tagging
-accuracy, the min-risk monference (if HMM parameters are known) is to run the
-forward algorithm, and predict the tag with maximum marginal probability at each
-time $$t$$. If we generate a random HMM, draw a bunch of sequences from it, and
-apply this min-risk classical procedure, we obtain the following tagging
+I generated a random HMM, drew a bunch of sequences from it, and
+applied this min-risk classical procedure. I obtained the following
 "online tagging" accuracy:
 
 {% highlight text %}
@@ -87,13 +93,13 @@ apply this min-risk classical procedure, we obtain the following tagging
 
 Another totally acceptable (though somewhat more labor-intensive) way of
 producing a monference for this online tagging problem is to take the HMM, draw
-many samples from it, and use these as training data for a vanilla RNN of the
-following form:
+many more samples from it, and use the (observed, hidden) sequences as training
+data (x, y) for a vanilla RNN of the following form:
 
 <img src="figures/monference_rnn.png" style="width: 30%">
 
 (where each arrow is an inner product followed by a ReLU or softmax). In this
-case we obtain the following accuracy:
+case I obtained the following accuracy:
 
 {% highlight text %}
     62.8
@@ -101,18 +107,18 @@ case we obtain the following accuracy:
 
 Of course, we know that we can get slightly better results for this problem by
 running the full forward-backward algorithm, and again making max-marginal
-predictions. In this case we obtain a tagging accuracy of:
+predictions. This improved classical procedure gave an accuracy of:
 
 {% highlight text %}
     63.3
 {% endhighlight %}
 
-better than either of the online models. If we now train a bidirectional
+better than either of the online models, as expected. Training a bidirectional
 recurrent net
 
 <img src="figures/monference_bdrnn.png" style="width: 30%">
 
-on samples from the HMM, we obtain a tagging accuracy of:
+on samples from the HMM gave a tagging accuracy of:
 
 {% highlight text %}
     63.3
@@ -157,7 +163,14 @@ maintains a distribution over discrete states, instead:
 The resulting monference has at least as much capacity as the corresponding
 classical procedure. To the extent that appproximation is necessary, we can (at
 least empirically) _learn_ the right approximation end-to-end from the training
-data. I think there's at least one more constituency parsing paper to be written
+data. 
+
+(The version of this that backpropagates through an approximate inference
+procedure, but doesn't attempt to learn the inference function itself, has [been
+around](http://cs.jhu.edu/~jason/papers/#stoyanov-ropson-eisner-2011)
+for [a while](http://www.cs.cmu.edu/~mgormley/papers/gormley+dredze+eisner.tacl.2015.pdf).)
+
+I think there's at least one more constituency parsing paper to be written
 using all the pieces of this framework, and lots more for working with
 graph-structured data.
 
@@ -182,17 +195,20 @@ networks as well.)
 In spite of all this, as research focus in this corner of the machine learning
 community shifts towards [planning, reasoning, and harder algorithmic
 problems](http://nips2015.sched.org/event/4G4h/reasoning-attention-memory-ram-workshop),
-I think the neural-nets-as-monferences perspective will become increasingly
-important. 
+I think the neural-nets-as-monferences perspective should dominate. 
 
 More than that---when we look back on the "deep learning revolution" ten years
 from now, I think the real lesson will be the importance of end-to-end training
 of decoders and reasoning procedures, even in systems that [barely
-look](http://www.cs.cmu.edu/~mgormley/papers/gormley+dredze+eisner.tacl.2015.pdf)
-like neural networks [at all](http://arxiv.org/abs/1601.01705). So when building
+look
+like neural networks at all](http://arxiv.org/abs/1601.01705). So when building
 learning systems, don't ask: "what is the probabilistic relationship among my
 variables?". Instead ask: "how do I approximate the inference function for my
 problem?", and attempt to learn this approximation directly. To do this
 effectively, we shouldn't ignore everything we know about classical inference
 procedures. But we should also start thinking of inference as a first-class part
 of the learning problem.
+
+---
+
+Thanks to Robert Nishihara and Greg Durrett for feedback.
