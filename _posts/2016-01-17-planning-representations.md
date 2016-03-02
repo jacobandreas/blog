@@ -29,15 +29,7 @@ computational resources to cases that really require simulation.
 
 We can represent this schematically:
 
-{% highlight text %}
-.       k
- r(s1) ----> r(s2)
-  ^           ^
-r |         r |
-  |           |
-  s1 -------> s2
-        c
-{% endhighlight %}
+<img src="figures/planning_representations_diagram.png">
 
 Here we have a representation function $$r$$, a true cost function $$c$$ (which
 we may want to think of as a 0--1 feasibility judgment), and a "representation
