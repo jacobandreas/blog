@@ -6,10 +6,13 @@ layout: default
 
 <ul class="post-list">
   {% for post in site.posts %}
-    <li>
-      <h3 class="{{ post.categories }}"><a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-        </h3>
-    </li>
+    {% if post.tags contains "draft" %}
+    {% else %}
+      <li>
+        <h3 class="{{ post.categories }}"><a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+          </h3>
+      </li>
+    {% endif %}
   {% endfor %}
 </ul>
 
