@@ -1,6 +1,5 @@
 ---
 title: A neural network is a monference, not a model
-tags: [draft]
 ---
 
 The distinction between _models_ and _inference procedures_ is central to most
