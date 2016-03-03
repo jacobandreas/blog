@@ -45,10 +45,11 @@ why it's wrong.
 Put simply, there is no reason to regard the hidden state of a
 recurrent network as a single hypothesis. After all, a sufficiently large hidden
 vector can easily represent the whole table of probabilities we use in the
-forward algorithm---or even represent the state of a particle filter. We will
-show this experimentally in a moment. The analogy "HMM hidden state = RNN hidden
-state" is bad; a better analogy is "HMM _decoder_ state = RNN hidden state".
+forward algorithm---or even represent the state of a particle filter. The
+analogy "HMM hidden state = RNN hidden state" is bad; a better analogy is "HMM
+_decoder_ state = RNN hidden state".
 
+<!--
 This _temptation to form false analogies_ is especially appealing to those of us
 who grew up in the graphical models culture, and are accustomed to inference
 design problems that look algorithmic. But it's only one of a variety of failure
@@ -60,20 +61,22 @@ _failure to reason about computation_.
 I don't want to pick on anyone individually. But there seems to be a recent
 trend of papers that start with a basic RNN, observe that it can't solve some
 simple algorithmic or reasoning problem, and conclude that some crazy new
-architecture is necessary---when often it would have been enough to let the RNN
-run for more steps, or make a minor change to kind of recurrent unit used.  I
-think people get in the habit of saying "everything is a function approximator,
-and all function approximators are basically comparable". Whereas if we say
-"everything is a program", these fair comparison issues become more complicated:
-we have to start worrying about equal runtimes, availability of the right
-floating point operations, etc. But when building inference procedures, these
-are exactly the things we should worry most about!
+architecture is necessary&mdash;when often it would have been enough to let the
+RNN run for more steps, or make a minor change to kind of recurrent unit used.
+I think people get in the habit of saying "everything is a function
+approximator, and all function approximators are basically comparable". Whereas
+if we say "everything is a program", these fair comparison issues become more
+complicated: we have to start worrying about equal runtimes, availability of the
+right floating point operations, etc. But when building inference procedures,
+these are exactly the things we should worry most about!
 
----
+***
 
-Let's look a little bit more closely at hidden Markov models. Code for
-experiments in this section can be found in the accompanying [Jupyter
-notebook](https://github.com/jacobandreas/blog/blob/gh-pages/notebooks/monference.ipynb).
+-->
+
+Let's look at this experimentally. (Code for
+this section can be found in the accompanying [Jupyter
+notebook](https://github.com/jacobandreas/blog/blob/gh-pages/notebooks/monference.ipynb).)
 
 If we think about the classical inference procedure with the same structure as a
 (uni-directional) recurrent neural network, it's something like this: for $$t =
