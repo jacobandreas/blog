@@ -71,8 +71,8 @@ are exactly the things we should worry most about!
 
 ---
 
-Let's look a little bit more closely at the case of hidden Markov models. Code
-for experiments in this section can be found in the accompanying [Jupyter
+Let's look a little bit more closely at hidden Markov models. Code for
+experiments in this section can be found in the accompanying [Jupyter
 notebook](https://github.com/jacobandreas/blog/blob/gh-pages/notebooks/monference.ipynb).
 
 If we think about the classical inference procedure with the same structure as a
@@ -88,7 +88,7 @@ applied this min-risk classical procedure. I obtained the following
 "online tagging" accuracy:
 
 {% highlight text %}
-    62.8
+62.8
 {% endhighlight %}
 
 Another totally acceptable (though somewhat more labor-intensive) way of
@@ -98,12 +98,26 @@ data (x, y) for a vanilla RNN of the following form:
 
 <img src="figures/monference_rnn.png" style="width: 30%">
 
-(where each arrow is an inner product followed by a ReLU or softmax). In this
+(where each arrow is an inner product followed by a ReLU or log-loss). In this
 case I obtained the following accuracy:
 
 {% highlight text %}
-    62.8
+62.8
 {% endhighlight %}
+
+Is it just a coincidence that these scores are the same? Let's look at some
+predictions:
+{% highlight text %}
+true hidden sequence: 1 0 0 1 0
+classical monference: 1 0 1 1 0
+neural monference:    1 0 1 1 0
+
+true hidden sequence: 1 0 1 2 0
+classical monference: 1 0 1 0 0
+neural monference:    1 0 1 0 0
+{% endhighlight %}
+
+So even when the monferences are wrong, they're wrong in the same way.
 
 Of course, we know that we can get slightly better results for this problem by
 running the full forward-backward algorithm, and again making max-marginal
@@ -124,15 +138,26 @@ on samples from the HMM gave a tagging accuracy of:
     63.3
 {% endhighlight %}
 
-See the pattern?  Notice: the neural nets we've used here don't encode anything
+A sample prediction:
+
+{% highlight text %}
+true hidden sequence: 0 1 0 0 1
+classical monference: 0 1 0 0 1
+neural monference:    0 1 0 0 1
+{% endhighlight %}
+
+Notice: the neural nets we've used here don't encode anything
 about classical message-passing rules, and they definitely don't encode anything
 about the generative process underlying an HMM. Yet in both cases, the neural
 net managed to achieve accuracy as good as (but no better than) the classical
-message passing procedure with the same structure.
+message passing procedure with the same structure. Indeed, this neural training
+procedure results in a piece of code that makes identical predictions to the
+forward--backward algorithm, without requiring that I ever implement the
+forward--backward algorithm!
 
 ---
 
-Neural networks are not magic! When our data is actually generated from an HMM,
+Neural networks are not magic---when our data is actually generated from an HMM,
 we can't hope to beat an (information-theoretically optimal) classical
 monference with a neural one. But we can empirically do just as well. Better
 yet, by modeling our networks after the _algorithmic structure_ of classical
