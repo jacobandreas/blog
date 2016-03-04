@@ -12,7 +12,7 @@ models. I want to argue that this view is misleading, and that it is more useful
 to think of neural networks as hopelessly entangled model--inference pairs.
 "Model--inference pair" is a mouthful, and there doesn't seem to be good
 existing shorthand, so I will henceforth refer to such objects as "monferences".
-My claim is that we should think of a neural network is an example of a
+My claim is that we should think of a neural network as an example of a
 monference. (An implementation of the Viterbi algorithm, equipped with the
 parameters of some _fixed_ HMM, is also a monference.)
 
