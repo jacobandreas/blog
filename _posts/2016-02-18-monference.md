@@ -99,7 +99,7 @@ producing a monference for this online tagging problem is to take the HMM, draw
 many more samples from it, and use the (observed, hidden) sequences as training
 data (x, y) for a vanilla RNN of the following form:
 
-<img src="figures/monference_rnn.png" style="width: 30%">
+<img src="figures/monference_rnn.png" style="width: 300px; max-width: 100%">
 
 (where each arrow is an inner product followed by a ReLU or log-loss). In this
 case I obtained the following accuracy:
@@ -133,7 +133,7 @@ predictions. This improved classical procedure gave an accuracy of:
 better than either of the online models, as expected. Training a bidirectional
 recurrent net
 
-<img src="figures/monference_bdrnn.png" style="width: 30%">
+<img src="figures/monference_bdrnn.png" style="width: 300px; max-width: 100%">
 
 on samples from the HMM gave a tagging accuracy of:
 
