@@ -249,3 +249,7 @@ learning problem.
 
 Thanks to Matt Gormley (whose EMNLP talk got me thinking about these issues), and
 Robert Nishihara and Greg Durrett for feedback.
+
+Also Jason Eisner for this gem: "An awful portmanteau, since monference should be a count 
+noun like model, but you took the suffix from the mass noun.  Not that I can claim that infedel 
+is much better..."
