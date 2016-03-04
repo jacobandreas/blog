@@ -127,7 +127,7 @@ running the full forward-backward algorithm, and again making max-marginal
 predictions. This improved classical procedure gave an accuracy of:
 
 {% highlight text %}
-    63.3
+63.3
 {% endhighlight %}
 
 better than either of the online models, as expected. Training a bidirectional
@@ -138,7 +138,7 @@ recurrent net
 on samples from the HMM gave a tagging accuracy of:
 
 {% highlight text %}
-    63.3
+63.3
 {% endhighlight %}
 
 A sample prediction:
