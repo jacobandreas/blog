@@ -247,4 +247,5 @@ learning problem.
 
 ---
 
-Thanks to Robert Nishihara and Greg Durrett for feedback.
+Thanks to Matt Gormley (whose EMNLP talk got me thinking about these issues), and
+Robert Nishihara and Greg Durrett for feedback.
