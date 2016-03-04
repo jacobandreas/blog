@@ -120,7 +120,7 @@ classical monference: 1 0 1 0 0
 neural monference:    1 0 1 0 0
 {% endhighlight %}
 
-So even when the monferences are wrong, they're wrong in the same way.
+So even when our two monferences are wrong, they're wrong in the same way.
 
 Of course, we know that we can get slightly better results for this problem by
 running the full forward-backward algorithm, and again making max-marginal
@@ -155,22 +155,27 @@ about the generative process underlying an HMM. Yet in both cases, the neural
 net managed to achieve accuracy as good as (but no better than) the classical
 message passing procedure with the same structure. Indeed, this neural training
 procedure results in a piece of code that makes identical predictions to the
-forward--backward algorithm, without requiring that I ever implement the
+forward--backward algorithm, but it doesn't know anything about the
 forward--backward algorithm!
 
 ---
 
 Neural networks are not magic---when our data is actually generated from an HMM,
 we can't hope to beat an (information-theoretically optimal) classical
-monference with a neural one. But we can empirically do just as well. Better
-yet, by modeling our networks after the _algorithmic structure_ of classical
-inference procedures, we can perhaps worry less about harder cases, when we
-previously would have needed to hand-tune some approximate inference scheme.  As
-we augment neural architectures to match more powerful inference procedures,
-their performance improves.  Bidirectional recurrent nets are better than
-forward-only ones; bidirectional networks with [multiple layers between each
-"real" hidden vector](http://arxiv.org/abs/1602.08210) might be even better for
-some tasks.
+monference with a neural one. But we can empirically do just as well. 
+As we augment neural architectures to match the _algorithmic structure_ of more
+powerful classical inference procedures, their performance improves.
+Bidirectional recurrent nets are better than forward-only ones; bidirectional
+networks with [multiple layers between each "real" hidden
+vector](http://arxiv.org/abs/1602.08210) might be even better for some tasks.
+
+Better yet, we can perhaps worry less about harder cases, when we previously
+would have needed to hand-tune some approximate inference scheme. (One example:
+suppose our transition matrix is a huge permutation. It might be very expensive
+to do repeated multiplications for classical inference, and trying to take a
+low-rank approximation to the transition matrix will lose information. But a
+neural monference can potentially represent our model dynamics quite
+compactly.)
 
 So far we've been looking at sequences, but analogues for more structured data
 exist as well. For tree-shaped problems, we can run something that looks like
@@ -186,8 +191,9 @@ There's a general principle here: anywhere you have an inference algorithm that
 maintains a distribution over discrete states, instead: 
 
 1. replace {chart cells, discrete distributions} with vectors
-2. unroll the "inference" procedure for a suitable number of iterations
-3. train via backpropagation
+2. replace messages between cells with recurrent networks
+3. unroll the "inference" procedure for a suitable number of iterations
+4. train via backpropagation
 
 The resulting monference has at least as much capacity as the corresponding
 classical procedure. To the extent that appproximation is necessary, we can (at
@@ -216,11 +222,11 @@ which model it performs inference for. (On the other hand, networks trained via
 [distillation](http://arxiv.org/abs/1503.02531) seem like good candidates for
 "same model, different monference".) And the networks-as-_models_ perspective
 shouldn't be completely ignored: it's resulted in a fruitful line of work that
-replaces log-linear potentials with little neural networks [inside
+replaces log-linear potentials with neural networks [inside
 CRFs](http://www.eecs.berkeley.edu/~gdurrett/papers/durrett-klein-acl2015.pdf).
 (Though one of the usual selling points of these methods is that "you get to
-keep your dynamic program", which we've argued here is true of regular recurrent
-networks as well.)
+keep your dynamic program", which we've argued here is true of suitably
+organized recurrent networks as well.)
 
 In spite of all this, as research focus in this corner of the machine learning
 community shifts towards [planning, reasoning, and harder algorithmic
@@ -235,9 +241,9 @@ like neural networks at all](http://arxiv.org/abs/1601.01705). So when building
 learning systems, don't ask: "what is the probabilistic relationship among my
 variables?". Instead ask: "how do I approximate the inference function for my
 problem?", and attempt to learn this approximation directly. To do this
-effectively, we shouldn't ignore everything we know about classical inference
-procedures. But we should also start thinking of inference as a first-class part
-of the learning problem.
+effectively, we can use everything we know about classical inference procedures.
+But we should also start thinking of inference as a first-class part of the
+learning problem.
 
 ---
 
