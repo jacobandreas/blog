@@ -17,8 +17,18 @@ h1 {
 
 ul.post-list {
   list-style-type: none;
+  padding: 0;
+}
+
+ul.post-list h3 {
+  font-size: 1em;
 }
 
 h3.reading a {
   color: #aaa;
+}
+
+img {
+  display: block;
+  margin: 0 auto;
 }
