@@ -9,6 +9,7 @@
 
 h1 {
   clear: both;
+  margin-bottom: .6em;
 }
 
 #disqus_thread {
@@ -20,8 +21,10 @@ ul.post-list {
   padding: 0;
 }
 
-ul.post-list h3 {
+ul.post-list span {
   font-size: 1em;
+  line-height: 1em;
+  margin-bottom: 1em;
 }
 
 h3.reading a {
