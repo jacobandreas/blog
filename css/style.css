@@ -27,8 +27,12 @@ ul.post-list span {
   margin-bottom: 1em;
 }
 
-h3.reading a {
+.reading a {
   color: #aaa;
+}
+
+.link a {
+  font-style: italic;
 }
 
 img {

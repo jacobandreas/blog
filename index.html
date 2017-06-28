@@ -7,7 +7,12 @@ layout: default
 <ul class="post-list">
   {% for post in site.posts %}
     <li>
-      <span class="{{ post.categories }}"><a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+      <span class="{{ post.categories }}">
+      {% if post.link %}
+        <a href="{{ post.link }}">{{ post.title }}</a>
+      {% else %}
+        <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+      {% endif %}
       </span>
     </li>
   {% endfor %}
