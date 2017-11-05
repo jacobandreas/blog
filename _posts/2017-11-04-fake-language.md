@@ -2,8 +2,8 @@
 title: "Fake language: two perspectives"
 ---
 
-What role should fake language datasets play?  (By "fake language" I mean things
-like
+Is there a role for fake language datasets in the AI ecosystem?  (By "fake
+language" I mean things like
 [bAbI](https://research.fb.com/downloads/babi/), 
 [CLEVR](http://cs.stanford.edu/people/jcjohns/clevr/),
 Karthik's ["Home" world](http://people.csail.mit.edu//karthikn/assets/pdf/mud-play15.pdf) 
