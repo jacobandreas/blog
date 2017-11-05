@@ -38,9 +38,9 @@ In this picture, language comes to you from the outside world---you don't
 control the distribution. You get to design the language of abstractions, but it
 had better be able to handle (or at least fail gracefully on) whatever
 utterances the world throws at you. Linguists give us a nice abstraction
-in the form of logic, and that the way to get from abstraction to behavior is
-just logical interpretation. So it's very easy to say "abstraction = formal
-semantics" and treat the `Abstraction -> Behavior` edge as someone else's
+formalism in the form of logic, and that the way to get from abstraction to
+behavior is just logical interpretation. So it's very easy to say "abstraction =
+formal semantics" and treat the `Abstraction -> Behavior` edge as someone else's
 problem. 
 
 Data is _collected_ from human speakers who don't necessarily know anything
@@ -53,8 +53,8 @@ language that we didn't write down in the first place.)
 
 ---
 
-"Control people" (broadly understood to include everything from RL to planning)
-worked on this:
+"Policy people" (broadly understood to include everything from RL to planning
+to classical control) worked on this:
 
     Abstraction -> Behavior
 
@@ -68,9 +68,8 @@ originally found difficult to appreciate is just how hard some of these problems
 are _even when we have complete control over the input distribution_.
 Reinforcement learning is _hard_.  Planning is _hard_. There's still lots of
 room for interesting compositionality in these abstraction languages---if I have
-some kind of structured representation of the reward function, and I train on a
-subset of structures, do I generalize to the rest?  There's lots we still can't
-do.
+some kind of structured representation of the goal, and I train on a subset of
+structures, do I generalize to the rest? There's lots we still can't do.
 
 To come up with problems that are within reach of current methods, data is
 _generated_ rather than collected. The distribution over abstractions and their
@@ -91,18 +90,16 @@ designed by hand. This is a great thing! Language people no longer have to limit
 themselves to worlds where they're clever enough to construct a good enough
 logical language. 
 
-And control people (here's where the trouble starts) no longer have to describe
+And policy people (here's where the trouble starts) no longer have to describe
 their task inventory in terms of any particular formalism: they just need some
 way of generating reward functions / goal tests synchronously with some kind of
 (compositional?) identifier that describes them. So they generate interpretable
-strings made of sequences of words.
+strings made of sequences of words. No execution semantics, uses English words:
+natural language.  Whence the confusion.
 
-The two groups keep using their two different data conditions from before (inputs
-come from language users / inputs come from task design), but now they call them
-both language! Whence the confusion.
 I think there's a lesson in this for people in both communities:
 
-- For "control people" as researchers: _please please please_ signpost
+- For "policy people" as researchers: _please please please_ signpost
   explicitly when your input strings were generated synthetically. The word
   _language_ is hopelessly overloaded at this point, but the bigram _natural
   language_ is not: avoid using the word _natural_ unless people were involved.
@@ -111,8 +108,8 @@ I think there's a lesson in this for people in both communities:
 - For "language people" as reviewers: respond to appropriately qualified fake
   language datasets by asking "Is an interesting `Abstraction -> Behavior`
   problem is being solved? Do strings index the target class of behaviors in an
-  interesting way?" (bAbI fails this test.) But there are lots of problems out
-  there for which this is an appropriate standard.
+  interesting way?" There are lots of problems out there for which this is an
+  appropriate standard.
 
 I think we're still at a stage where there's something to learn from fake
 language, even those of us who ultimately care about the distribution of
