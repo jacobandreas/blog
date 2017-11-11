@@ -1,5 +1,5 @@
 ---
-title: "Notes on _General Semantics_"
+title: "Lewis: General Semantics"
 categories: [reading]
 ---
 
