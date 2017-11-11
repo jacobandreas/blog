@@ -1,5 +1,5 @@
 ---
-title: "Notes on "_General Semantics_"
+title: "Notes on _General Semantics_"
 categories: [reading]
 ---
 
