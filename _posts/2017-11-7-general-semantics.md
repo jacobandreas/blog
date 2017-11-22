@@ -100,7 +100,7 @@ categories: [reading]
 - Self-referential sentences generate situations where paraphrase is not
   truth-preserving.
 
-### Final thoughts
+---
 
 One thing that really surprises me is the casualness with which L allows the
 intension of _alleged Maoist_ to be determined by a combination of the _words_
