@@ -3,8 +3,6 @@ title: "Davidson: Truth & Meaning"
 categories: [reading]
 ---
 
-### Truth and Meaning
-
 - We agree that a theory of meaning must talk about how the meaning of a
   sentence is constructed from the meanings of words.
 
