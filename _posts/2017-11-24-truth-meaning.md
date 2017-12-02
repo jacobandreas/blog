@@ -13,7 +13,7 @@ categories: [reading]
   set.]
 
 - OK, but more generally we don't need to think of complex sets relations or
-  relations like $\lambda x. father(x, Annette) \land brother(x, Pierre)$ as
+  relations like $$\lambda x. father(x, Annette) \land brother(x, Pierre)$$ as
   "referring" to anything---the functional form is enough. (And no additional
   explanatory value in trying to compute its extension.)
 
@@ -25,8 +25,9 @@ categories: [reading]
 
 - In Frege-land, all our theory needs to be able to do is generate all
   statements of the form: _t_ refers to _x_, where _t_ is a composed expression
-  and _x_ is a referent.  [By "all statements" I think we mean $\forall \{t: t is
-  well-formed\}$, not $\forall x$.] And now only for sentences, and nothing
+  and _x_ is a referent.  [By "all statements" I think we mean $$\forall t:
+t\text{ is
+  well-formed}$$, not $$\forall x$$.] And now only for sentences, and nothing
   smaller.
 
 - Problem: if the referent of a sentence is its truth value, all true sentences
@@ -34,8 +35,8 @@ categories: [reading]
   equality judgments. [???]
 
 - In particular, if I just say that the meaning of "Theaetetus" is
-  [[Theaetatus]] and the meaning of "flies" is $\lambda x. f(x)$ for whatever
-  $f$ is necessary to assign the right truth value to "Theaetetus flies", I
+  [[Theaetatus]] and the meaning of "flies" is $$\lambda x. f(x)$$ for whatever
+  $$f$$ is necessary to assign the right truth value to "Theaetetus flies", I
   haven't explained anything about meaning.
 
 - Worrying about meanings in the lexicon doesn't necessarily tell us anything
@@ -126,7 +127,7 @@ categories: [reading]
 
 ---
 
-I think the bullets labeled (*) above contain the substance of my understanding
+I think the bullet labeled (*) above contains the substance of my understanding
 of this paper, and for motivating truth conditions as the kind of structured
 representation that deserves to be called the meaning of a sentence. It's an
 important observation that many apparent paradoxes in truth-conditional accounts

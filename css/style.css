@@ -19,12 +19,11 @@ h1 {
 ul.post-list {
   list-style-type: none;
   padding: 0;
+  line-height: 1.5em;
 }
 
-ul.post-list span {
-  font-size: 1em;
-  line-height: 1em;
-  margin-bottom: 1em;
+ul, ol {
+  padding-left: 1.2em;
 }
 
 .reading a {
