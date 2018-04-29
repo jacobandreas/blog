@@ -1,5 +1,5 @@
 ---
-title: "Quine: Meaning & Translation"
+title: "Quine: Translation & Meaning"
 categories: [reading]
 ---
 
