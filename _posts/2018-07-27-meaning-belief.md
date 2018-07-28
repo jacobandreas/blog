@@ -1,0 +1,194 @@
+---
+title: Meanings and belief states
+---
+
+Should AI research be concerned with explicit representations of the meanings of
+utterances? By "explicit representations of meaning" I mean structured variables
+with a pre-defined interpretation---the kind of thing that semanticists are
+concerned with. For a long time, such meaning representations were central to
+successful efforts aimed at linking language to other tasks involving reasoning,
+perception, and action (a line of work that runs from SHRDLU to modern semantic
+parsers).
+<span class='aside'> Structured meaning representations were also
+central to _unsuccessful_ work on machine translation, syntax, etc.</span>
+This work uses lots of different representation formalisms---proper
+neo-Davidsonian logical forms
+[[AZ13]](http://aclweb.org/anthology/Q/Q13/Q13-1005.pdf), 
+combinator logics 
+[[LJK11]](http://www.aclweb.org/anthology/P11-1060), 
+other non-logical structures
+[[TK+11]](https://people.csail.mit.edu/stefie10/publications/tellex11a.pdf)---but
+if you squint they're all basically predicate-argument structures implementing a
+model-theoretic semantics, with perhaps a few free parameters in the bodies of
+the predicates.
+
+These kinds of approaches seem to be disappearing. Now that everything is
+end-to-end all the time, it's rare to see models with explicit latent variables
+taking values in hand-designed logical languages. Utterances come into our
+models, behaviors come out, and we don't worry too much about the structure of
+the computation that gets performed in the middle.  
+<span class='aside'>There are still certain kinds of generalization and inductive bias we used to
+get for free with the old models that we haven't totally figured out how to
+recreate. The success of hybrid approaches like structured regularizers
+[[OS+17]](https://arxiv.org/abs/1606.02447) and our NMN work
+[[AR+16]](http://arxiv.org/abs/1601.01705) suggest we'll get there eventually.</span>
+This is, with some qualifications, a good thing: in more formal approaches,
+tight coupling between the machine learning and the representation means that
+there's always a risk that some new semantic phenomenon shows up in the data and
+suddenly your model is useless. Sufficiently generic machinery for
+learning (non-logical) representations makes this a little less scary.
+
+But the attitude of the end-to-end world seems to be that since we're no longer
+doing logical inference, there's no need to think about meaning at all. Suddenly
+everyone loves to cite Wittgenstein to argue that we should be 
+evaluating "language understanding" in terms of success on downstream tasks
+rather than predicting the right logical forms
+[[WLM16]](https://arxiv.org/abs/1606.02447)
+[[GM16]](https://arxiv.org/abs/1610.03585)
+[[LPB16]](https://arxiv.org/abs/1612.07182)---which is great!---but underlying
+this seems to be a philosophy that "meaning is use, so if we can predict use with
+high accuracy we've understood everything we need to about meaning".
+<span class='aside'>
+I've never understood this to be the claim in _Philosophical
+Investigations_---even if use (rather than reference) is the primary thing we
+should be trying to explain, _PI_ is very interested in the kinds of mental
+representations in virtue of which language use is possible. 
+</span>
+Particularly given that we have not actually solved "use", I think machine
+learning has both lots to learn and lots to say about the meaning side of the
+equation as well.
+
+In this post I want to motivate the use of explicit representations of belief
+states of the form $$p(\textsf{world state} \mid \textsf{utterance})$$ _as_
+representations of meaning suitable for "unstructured" machine learning models.
+These kinds of representations arise naturally in the sorts of decision-making
+tasks the community is excited about about these days, but they also look a lot
+like classical representational theories in linguistics. The synthesis suggests
+ways of both training and interpreting language processing models.
+
+## Belief states and intensions
+
+
+Consider the problem of trying to act in a partially observed world where people
+talk to you in order to help reduce your uncertainty. How should you choose the
+best possible action to take? Given a single utterance $$w$$, and possible true
+states of the world $$x$$, the min Bayes risk action is
+
+$$ \arg\min_a \int_x p(x \mid w) \; R(a;\,x) $$
+
+for some risk function $$R$$. Any listener who hopes to succeed in the world
+needs to do a good job of at least approximately solving this optimization
+problem, and in practice the listener will probably need to represent the
+distribution $$p(x \mid w)$$, at least implicitly. In POMDP-land we call $$p(x
+\mid w)$$ a _belief state_; for a given $$w$$, it's a function that maps from
+possible worlds $$x$$ to scalar plausibility judgments---how likely is it that
+$$x$$ is the true world given that we observed someone saying $$w$$ about it?
+
+Compare this to the notion of an _intension_ in Montague semantics: "a function
+from possible worlds and moments of time to truth values"
+[[J11]](https://plato.stanford.edu/entries/montague-semantics/#IntTau).  Most
+(model-theoretic) semantics programs represent intensions using logical
+expressions (rather than e.g. tabularly). But a logical form is just one way of
+expressing a function of the right type; at the end of the day, an "explicit
+representation of meaning" to the Montagovian tradition is precisely an
+intension---that is, something that looks like a discretized version of our
+$$p(x \mid w)$$.
+
+_A belief state is an intension with probabilities_. Intensional representations
+of meaning are useful not just because they help us solve linguistic
+problems, but also because they approximate a quantity that we know helps
+language users _do_ useful things with the information they've acquired from
+language. From the other side, what the POMDP tells us we have to compute
+upon hearing an utterance is approximately the thing linguists have been telling
+us to compute all along.
+<span class='aside'>
+Or almost the thing linguists have been telling us about---what would be even
+better than a black box for answering $$p(x \mid w)$$ queries would be something
+with a little structure, maybe some kind of factorized representation that let
+us find the MBR action efficiently by making it possible to inspect the set of
+properties that all plausible worlds have in common. Perhaps a product of
+assertions about individuals, their properties, and their relations.... If
+logical semantics didn't exist we would have had to invent it. 
+</span>
+
+$$p(x \mid w)$$ qua "meaning" should be precisely understood as a _listener
+meaning_:  an accurate belief state already accounts for Gricean
+speaker-meaning-type effects (e.g. implicatures) and also further inferences the
+speaker may _not_ have wanted the listener to draw (e.g. the possibility that
+$$w$$ is a lie). Our story here doesn't care where $$p(x \mid w)$$ comes from,
+so it might be computed via something like RSA
+[[FG12]](http://science.sciencemag.org/content/336/6084/998) with a distinct
+notion of sentence meaning embedded inside.
+
+One last adjustment: real-world listeners don't start with a _tabula rasa_:
+every utterance is interpreted in the context of an existing belief state
+$$p(x)$$, and we really want to think of the meaning of a sentence as an _update
+function_; i.e. $$p(x) \mapsto p(x \mid w)$$ rather than just $$p(x \mid w)$$.
+For sentences of the "Pat loves Lou" variety I think this update is basically
+always conjunctive; i.e. $$p(x) \mapsto (1/Z) \cdot p(x) \cdot p(x \mid w)$$.
+But the general version is necessary for dealing with indexicals and
+[Quine's problems](translation-meaning.html) with the denotation of _bachelor_.
+
+## Practical implications
+
+All very nice, but we led by noting that explicit denotational meaning
+representations (logical, probabilistic, or otherwise) don't actually show up in
+the kinds of models that work well in practice. So why does any of this matter?
+
+For language understanding systems to work well, they must be choosing something
+close to the min Bayes risk action. Hand-wavingly: a suffix of a deep network is
+a function from input representations to output actions via a fixed circuit; if
+this suffix can pick a good action for every input representation it's
+implementing something like an MBR decoding algorithm (though perhaps
+approximate and specialized to the empirical distribution over representations);
+whatever representation of language-in-context is presented to this part of the
+network must then be sufficient to solve the optimization problem, so be
+something like a representation of $$p(x \mid w)$$.
+
+This is not a great argument: there may in fact be no
+clear distinction between the "sentence representation" and "optimization" parts
+of the model. But in practice we do see meaning-like sentence representations
+emerge (especially in models where the sentence representation is computed
+_independent_ of whatever initial information the listener has about the state
+of the world
+[[DP+18]](https://distill.pub/2018/feature-wise-transformations/)).
+When using specialized optimization modules within larger networks
+[[TW+17]](https://arxiv.org/abs/1602.02867)
+[[LFK18]](https://arxiv.org/abs/1805.02777)
+we can be sure of the distinction.
+
+In any case, the knowledge that some intermediate representation in our model is
+(or should be) decodable into a distribution over world states gives us two
+tools:
+
+**Interpretability:** test whether representations are capturing the right
+semantics (or identify what weird irregularities they're latching onto) by
+estimating $$p(x \mid \textrm{rep}(w))$$, where $$\textrm{rep}(w)$$ is the
+model's learned representation of the utterance $$w$$.  Determine whether this
+corresponds to the real (i.e. human listener's) denotation of $$w$$. We got a
+bunch of mileage out of this technique in our neuralese papers
+[[ADK17]](https://arxiv.org/abs/1704.06960)
+[[AK17]](https://arxiv.org/abs/1707.08139) and other students in the group have
+been using it recently to analyze pretraining schemes for instruction-following
+models. But in some ways it's even more natural to apply it to the learning of
+representations of natural language itself rather than a learned space of
+messages / abstract actions.
+
+**Auxiliary objectives:** the normal objective for an instruction following / QA
+problem is $$p(\textsf{action} \mid \textsf{utterance}, \textsf{listener
+obs})$$. But if overfitting is an issue, it's easy enough to tack on an extra
+term of the form $$p(\textsf{speaker obs, listener obs} \mid
+\textsf{utterance})$$ if it's available. For some problems (e.g. GeoQuery-style
+semantic parsing) there isn't a meaningful distinction between "speaker
+observation" and "action"; for others it looks like a totally different learning
+problem. For referring expression games the denotational auxiliary problem is
+"generate / retrieve pairs of images for which this would be a discriminative
+caption"; for instruction following models it's "generate the goal state (but
+not necessarily the actions that get me there)".
+
+## Conclusions 
+
+Thinking about POMDP-style solutions to language games results in an account of
+meaning that looks suspiciously like model-theoretic semantics. This analogy
+provides tools for interpreting learned models and suggests auxiliary objectives
+for improving their accuracy.
