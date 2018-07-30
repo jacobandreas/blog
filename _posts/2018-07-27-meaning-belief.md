@@ -30,7 +30,7 @@ the computation that gets performed in the middle.
 <span class='aside'>There are still certain kinds of generalization and inductive bias we used to
 get for free with the old models that we haven't totally figured out how to
 recreate. The success of hybrid approaches like structured regularizers
-[[OS+17]](https://arxiv.org/abs/1606.02447) and our NMN work
+[[OS+17]](http://arxiv.org/abs/1706.05064) and our NMN work
 [[AR+16]](http://arxiv.org/abs/1601.01705) suggest we'll get there eventually.</span>
 This is, with some qualifications, a good thing: in more formal approaches,
 tight coupling between the machine learning and the representation means that
