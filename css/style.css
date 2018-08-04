@@ -59,21 +59,17 @@ h3, h4, h5, h6 {
 }
 
 @media (max-width: 950px) {
-  /*
   .aside {
     position: static;
     display: inline;
   }
 
   .aside::before {
-    content: "[";
+    content: "[[ ";
   }
 
   .aside::after {
-    content: "]";
+    content: " ]]";
   }
-  */
-  .aside {
-    display: none;
-  }
+  color: #999;
 }
