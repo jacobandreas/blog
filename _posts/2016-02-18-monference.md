@@ -222,8 +222,8 @@ which model it performs inference for. (On the other hand, networks trained via
 [distillation](http://arxiv.org/abs/1503.02531) seem like good candidates for
 "same model, different monference".) And the networks-as-_models_ perspective
 shouldn't be completely ignored: it's resulted in a fruitful line of work that
-replaces log-linear potentials with neural networks [inside
-CRFs](http://www.eecs.berkeley.edu/~gdurrett/papers/durrett-klein-acl2015.pdf).
+replaces log-linear potentials with neural networks 
+[inside CRFs](https://arxiv.org/abs/1507.03641).
 (Though one of the usual selling points of these methods is that "you get to
 keep your dynamic program", which we've argued here is true of suitably
 organized recurrent networks as well.)
