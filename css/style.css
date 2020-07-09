@@ -28,6 +28,7 @@ ul, ol {
 
 .reading a {
   color: #aaa;
+  display: none;
 }
 
 .link a {
